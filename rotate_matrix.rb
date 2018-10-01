@@ -1,3 +1,9 @@
+# given a matrix, rotate it 90 degrees
+
+# I really don't remember this approach
+
+# Solution 1
+#
 def rotateMatrix(mat)
       n = mat.size
     # Consider all squares one by one 
@@ -26,16 +32,22 @@ def rotateMatrix(mat)
   mat
 end
 
+# this is actually the important algorithm for rotating a matrix 90 degrees
+#
 def rotate(x, y, n)
   [y, n-1-x]
 end
 
-# Python 3 program for left rotation of matrix by 90 
-# degree without using extra space 
-   
+# Solution 2
+#
+# Rotation of matrix by 90 degree without using extra space 
+# 
 # After transpose we swap elements of column 
 # one by one for finding left rotation of matrix 
 # by 90 degree 
+#
+# If rotation is to the right, reverse rows instead
+#
 def reverse_columns(arr) 
   0.upto(arr[0].size-1) do |i|
     j = 0
@@ -79,28 +91,3 @@ def transpose(arr)
   arr
 end
 
-# this is normal array rotation not matrix
-def rotate(arr, n)
-    curr_i = new_i = 0
-    temp = new_val = arr[curr_i]; 
-    i = 0
-    while (i < arr.length)
-        curr_i = new_i
-
-        #compute the new index for current value 
-        new_i = (arr.length - (n % arr.length) + curr_i) % arr.length; 
-
-        #take backup of new index value 
-        temp = arr[new_i]
-
-        #assign the value to the new index 
-        arr[new_i] = new_val 
-
-        new_val = temp
-        i+=1
-    end
-    arr
-end
-
-
-p rotate([1, 2, 3, 4, 5, 6, 7], 2)
