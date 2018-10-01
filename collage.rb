@@ -50,3 +50,35 @@ def pretty_print(n)
 end
 
 
+c,s="0:00 0:01".split(" ")
+f=->(i) {i.split(":").map(&:to_i)}
+
+d=f[c]
+e=f[s]
+y=e[1]-d[1]
+z=e[0]-d[0]
+if y<0
+    y+=60
+    z-=1
+end
+h = {}
+h["s0"] = "00"
+h["e0"] = "01"
+
+
+h["s0"] = "59"
+h["e1"] = "01"
+
+start, finish = "0:59 1:01".split(" ")
+h1, m1 = start.split(":").map(&:to_i)
+h2, m2 = finish.split(":").map(&:to_i)
+
+if m1 > m2
+  m2 += 60
+  h2 -= 1
+end
+
+rh = h2 - h1
+rm = m2 - m1 < 10 ? "0#{m2 - m1}" : m2 - m1
+
+res = [rh, rm].join(":")
