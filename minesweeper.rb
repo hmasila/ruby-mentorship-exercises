@@ -8,7 +8,7 @@ def minesweeper(bombs, rows, cols)
     col_i = bomb[1]
     field[row_i][col_i] = -1
   end
-  # Step 1.2: setup an increminator function
+  # Step 1.2: setup an incremi
   incrementer =->(cell) { cell == -1 ? cell : cell+=1 }
 
   # Step 2: Working on mine(n,n)
@@ -96,8 +96,49 @@ def minesweeper(bombs, rows, cols)
     end  # j
   end # i
 
-  # Step 3: return the field
+  # Step 3: Turn the "mines" into 1s
   field
 end# minesweeper()
 
-p minesweeper([[0,1]], 3, 3)
+def mine_sweeper(bombs, rows, cols)
+  field = Array.new(rows) { Array.new(cols, 0) }
+  bombs.each do |bomb|
+    row_i, col_i = bomb
+    field[row_i][col_i] = -1
+    (row_i-1).upto(row_i+1) do |i|
+      (col_i-1).upto(col_i+1) do |j|
+        if(i>=0&&i<rows&&j>=0&&j<cols&&field[i][j]!=-1)
+          field[i][j]+=1
+        end
+      end
+    end
+  end
+  field
+end
+
+def minefield(field, cell)
+  queue = []
+  row, col = cell
+  if field[row][col] == 0
+    queue << cell
+  else
+    return field
+  end
+
+  while queue.size > 0
+    current_i, current_j = queue.shift
+    (current_i-1).upto(current_i+1) do |i|
+      (current_j-1).upto(current_j+1) do |j|
+        if i>=0&&i<field.size&&j>=0&&j<field[0].size
+          if field[i][j] == 0
+            queue << [i,j]
+            field[i][j] = -2
+          end
+        end
+      end
+    end
+  end
+  field
+end
+
+p minesweeper([[0,0],[0,1]], 3, 4)
