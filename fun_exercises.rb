@@ -147,24 +147,23 @@ def suffix(n)
 end
 
 
-# TODO: this implementation is wrong
-r = "VII"
+# Works, but I can't explain why
+r = "IV"
 def roman_to_numeric(r)
-	h = {"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000,"IV":4,"IX":9,"XL":40,"XC":90,"CD":400,"CM":900}
-	if h.key?(r.to_sym)
-	    return h[r.to_sym]
+	# in ruby if you are trying to output a single character, you can use ?M and it will be "M"
+	h = {?M=>1000,?D=>500,?C=>100,?L=>50,?X=>10,?V=>5,?I=>1}
+	l = ?I
+	if h.key?(r)
+	    return h[r]
 	else
-	    t=r.chars
-	    for i in t
-	        return h[i.to_sym]
+		s = 0
+	    r.chars.reverse.map do |i|
+	    	y = h[i] * (h[l] > h[i] ? -1 : 1)
+	    	l = i
+	    	s+=y
 	    end
 	end
+	s
 end
-
-# someone wrote this and it works, but oh my, what is this supposed to mean
-
-a={?M=>1000,?D=>500,?C=>100,?L=>50,?X=>10,?V=>5,?I=>1}
-l=?I
-p gets.chars.reverse.map{|x|y=a[x]*(a[l]>a[x]?-1:1);l=x;y}.sum
 
 p roman_to_numeric(r)
