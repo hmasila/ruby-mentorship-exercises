@@ -161,4 +161,10 @@ def roman_to_numeric(r)
 	end
 end
 
+# someone wrote this and it works, but oh my, what is this supposed to mean
+
+a={?M=>1000,?D=>500,?C=>100,?L=>50,?X=>10,?V=>5,?I=>1}
+l=?I
+p gets.chars.reverse.map{|x|y=a[x]*(a[l]>a[x]?-1:1);l=x;y}.sum
+
 p roman_to_numeric(r)
